@@ -1,0 +1,954 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Gothic Schloss-Knacker</title>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700;900&family=Cinzel+Decorative:wght@700;900&family=MedievalSharp&family=UnifrakturCook:wght@700&family=Spectral:wght@400;500;600&display=swap" rel="stylesheet">
+<!-- ┌─ Google AdSense ─────────────────────────────────────────────────────────┐
+     │ Vor dem Veröffentlichen: ca-pub-5757832187265723 durch deine Publisher-ID  │
+     │ ersetzen (3 Stellen: hier + die beiden <ins data-ad-client> unten) und    │
+     │ die data-ad-slot-Werte durch deine echten Anzeigenblock-IDs aus AdSense.  │
+     │ Before publishing: replace ca-pub-XXXX with your publisher ID (3 places)   │
+     │ and the data-ad-slot values with your real ad-unit IDs from AdSense.       │
+     └───────────────────────────────────────────────────────────────────────────┘ -->
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5757832187265723" crossorigin="anonymous"></script>
+<style>
+:root{
+  --ember:#e8901a;
+  --ember-hi:#ffc24d;
+  --gold:#d9b878;
+  --gold-dim:#b08f50;
+  --rune:#9a7c45;
+  --iron:#23211d;
+  --iron-lo:#15140f;
+  --iron-hi:#3a362c;
+  --stone:#0b0a07;
+  --blood:#8c1f12;
+  --moss:#4d6b22;
+  --body-font:'Spectral',Georgia,'Times New Roman',serif;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{ -webkit-text-size-adjust:100% }
+body{
+  min-height:100vh;
+  color:var(--gold);
+  font-family:'Cinzel',Georgia,serif;
+  padding:18px 10px 40px;
+  position:relative;
+  background:
+    radial-gradient(120% 90% at 22% -8%, rgba(232,144,26,.16) 0%, rgba(232,144,26,0) 42%),
+    radial-gradient(140% 120% at 80% 120%, rgba(20,12,4,.9) 0%, rgba(0,0,0,0) 50%),
+    radial-gradient(ellipse at 50% 30%, #181208 0%, #0a0805 55%, #040302 100%);
+}
+body::before{
+  content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.05'/%3E%3C/svg%3E");
+  mix-blend-mode:overlay;
+}
+body::after{
+  content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;
+  box-shadow:inset 0 0 200px 40px rgba(0,0,0,.85);
+}
+.langsel{position:fixed;top:10px;right:12px;z-index:60;display:flex;gap:4px}
+.langsel button{font-family:'Cinzel',serif;font-size:12px;font-weight:700;letter-spacing:1px;padding:6px 11px;border-radius:5px;cursor:pointer;
+  background:linear-gradient(180deg,#221d14,#15110b);border:1px solid #4a3a1e;color:var(--gold-dim);
+  box-shadow:inset 0 1px 0 rgba(255,200,120,.08),0 2px 4px rgba(0,0,0,.5)}
+.langsel button:hover{color:var(--gold)}
+.langsel button.active{background:linear-gradient(180deg,#7a4309,#4a2807);border-color:#b5781c;color:var(--ember-hi);
+  box-shadow:inset 0 1px 0 rgba(255,210,140,.35),0 0 12px rgba(232,144,26,.4)}
+.sub{
+  font-family:'MedievalSharp',serif;
+  font-size:12px;letter-spacing:8px;color:var(--rune);
+  text-transform:uppercase;text-align:center;margin-bottom:2px;
+}
+h1{
+  font-family:'UnifrakturCook','Cinzel Decorative',serif;
+  font-weight:700;color:var(--ember-hi);
+  font-size:40px;line-height:1.05;letter-spacing:1px;text-align:center;
+  text-shadow:0 0 26px rgba(232,144,26,.55), 0 0 6px rgba(255,194,77,.6), 0 3px 2px #000;
+  margin:0 auto;
+}
+@keyframes flicker{0%,100%{text-shadow:0 0 26px rgba(232,144,26,.55),0 0 6px rgba(255,194,77,.6),0 3px 2px #000}
+  45%{text-shadow:0 0 20px rgba(232,144,26,.42),0 0 4px rgba(255,194,77,.45),0 3px 2px #000}
+  60%{text-shadow:0 0 30px rgba(232,144,26,.62),0 0 9px rgba(255,194,77,.72),0 3px 2px #000}}
+h1{animation:flicker 5.5s infinite ease-in-out}
+.titlerule{display:flex;align-items:center;justify-content:center;gap:12px;margin:6px auto 2px;max-width:480px;color:var(--gold-dim)}
+.titlerule::before,.titlerule::after{content:"";height:1px;flex:1;
+  background:linear-gradient(90deg,transparent,var(--gold-dim),transparent)}
+.titlerule span{font-family:'MedievalSharp',serif;font-size:13px;letter-spacing:4px;color:var(--ember)}
+.wrap{max-width:520px;margin:16px auto 0;display:flex;flex-direction:column;gap:14px}
+.card{
+  position:relative;
+  background:
+    linear-gradient(180deg, rgba(255,200,120,.04), rgba(0,0,0,0) 18%),
+    linear-gradient(155deg,#211e18 0%,#1a1712 45%,#100e0a 100%);
+  border:1px solid #000;
+  border-radius:5px;
+  padding:14px 15px;
+  box-shadow:
+    inset 0 1px 0 rgba(255,210,140,.10),
+    inset 0 0 0 1px rgba(120,90,40,.12),
+    inset 0 -22px 40px rgba(0,0,0,.55),
+    0 6px 22px rgba(0,0,0,.7);
+}
+.card::before,.card::after{
+  content:"";position:absolute;width:7px;height:7px;border-radius:50%;
+  background:radial-gradient(circle at 35% 30%,#6a5a40,#211b10 70%,#000);
+  box-shadow:0 1px 1px rgba(0,0,0,.8), inset 0 1px 1px rgba(255,220,150,.3);
+}
+.card::before{top:7px;left:7px;  box-shadow:0 1px 1px rgba(0,0,0,.8), inset 0 1px 1px rgba(255,220,150,.3),
+  120px 0 0 -1px transparent;}
+.card::after{top:7px;right:7px}
+.ct{
+  font-family:'MedievalSharp',serif;
+  font-size:15px;letter-spacing:1px;color:var(--ember);
+  text-transform:none;margin-bottom:11px;padding-bottom:7px;
+  border-bottom:1px solid #000;
+  box-shadow:0 1px 0 rgba(120,90,40,.18);
+  text-shadow:0 -1px 0 #000,0 1px 0 rgba(255,200,120,.12);
+}
+.hint{font-size:14px;color:#cdaa6a;margin-bottom:10px;line-height:1.7;font-family:var(--body-font);font-weight:400}
+.hint b{color:#f0d49a}
+input[type=range]{ -webkit-appearance:none;appearance:none;width:100%;height:10px;border-radius:5px;cursor:pointer;
+  background:linear-gradient(180deg,#0a0806,#1c1812);
+  box-shadow:inset 0 1px 3px #000, inset 0 -1px 0 rgba(120,90,40,.2);outline:none}
+input[type=range]::-webkit-slider-thumb{ -webkit-appearance:none;width:20px;height:20px;border-radius:50%;
+  background:radial-gradient(circle at 35% 30%,#ffd47a,#c07a1e 55%,#5a3208);
+  border:1px solid #2a1c08;box-shadow:0 0 10px rgba(232,144,26,.6),0 2px 3px #000;cursor:pointer}
+input[type=range]::-moz-range-thumb{width:20px;height:20px;border-radius:50%;
+  background:radial-gradient(circle at 35% 30%,#ffd47a,#c07a1e 55%,#5a3208);
+  border:1px solid #2a1c08;box-shadow:0 0 10px rgba(232,144,26,.6),0 2px 3px #000;cursor:pointer}
+.nr{display:flex;align-items:center;gap:14px}
+.nd{font-size:30px;font-weight:900;color:var(--ember-hi);font-family:'Cinzel',serif;min-width:38px;text-align:center;
+  text-shadow:0 0 14px rgba(232,144,26,.6),0 2px 2px #000}
+#pr{display:flex;flex-direction:column;gap:6px;overflow-x:auto;padding:4px 0;}
+.lg-row{display:flex;align-items:center;gap:8px;width:max-content}
+.lg-label{width:32px;text-align:right;font-family:'Cinzel',serif;font-weight:700;font-size:14px;color:#a08a62;flex-shrink:0;cursor:pointer;user-select:none;text-shadow:0 1px 1px #000}
+.lg-row.active .lg-label{color:var(--ember-hi);text-shadow:0 0 8px rgba(232,144,26,.6)}
+.lg-track{display:flex;gap:3px;flex-shrink:0}
+.lg-cell{width:30px;height:32px;border:1px solid #000;border-radius:5px;cursor:pointer;
+  background:linear-gradient(160deg,#1a1610 0%,#0c0a06 70%);
+  box-shadow:inset 0 1px 0 rgba(255,200,120,.06),inset 0 -3px 6px rgba(0,0,0,.6);
+  display:flex;align-items:center;justify-content:center;transition:background .1s,border-color .1s;flex-shrink:0}
+.lg-cell:hover{background:linear-gradient(160deg,#2a2114,#15110a);border-color:#6a4a18}
+.lg-cell.center{background:linear-gradient(160deg,#241a0c,#140d05);border-color:#7a521c;
+  box-shadow:inset 0 0 0 1px rgba(232,144,26,.22),inset 0 -3px 6px rgba(0,0,0,.6)}
+.lg-cell.center:hover{background:linear-gradient(160deg,#33260f,#1c1208)}
+.lg-row.active .lg-cell.center{border-color:#a86e22}
+.lg-dot{width:17px;height:17px;border-radius:50%;pointer-events:none;box-shadow:0 1px 3px #000}
+.lg-cell.pin-set .lg-dot{background:radial-gradient(circle at 35% 30%,#ff8a5a,#9a1f0c 70%);border:1px solid #cc3a22;
+  box-shadow:0 0 7px rgba(204,58,34,.55),inset 0 1px 1px rgba(255,200,170,.4)}
+.lg-cell.pin-act .lg-dot{background:radial-gradient(circle at 35% 30%,#aee6ff,#0a63b8 70%);border:1px solid #7ec6ff;
+  box-shadow:0 0 11px rgba(40,150,255,.65),inset 0 1px 1px rgba(220,245,255,.5)}
+.lg-cell.pin-ok  .lg-dot{background:radial-gradient(circle at 35% 30%,#ffe8a0,#c07a1e 70%);border:1px solid #ffd066;
+  box-shadow:0 0 12px rgba(232,144,26,.8),inset 0 1px 1px rgba(255,235,190,.6)}
+.lg-val{width:22px;text-align:center;font-size:14px;font-weight:700;color:#6a5733;flex-shrink:0;font-family:'Cinzel',serif}
+.lg-val.ok{color:var(--ember-hi);text-shadow:0 0 8px rgba(232,144,26,.5)}
+.lg-readonly .lg-cell{cursor:default}
+.lg-readonly .lg-cell:hover{background:linear-gradient(160deg,#1a1610,#0c0a06);border-color:#000}
+.lg-readonly .lg-cell.center{background:linear-gradient(160deg,#241a0c,#140d05);border-color:#7a521c}
+.dep-wrap{overflow-x:auto}
+.dep-header-row,.dep-row{display:flex}
+.dhl{width:32px;height:32px;display:flex;align-items:center;justify-content:center;font-size:11px;font-family:'Cinzel',serif;color:var(--rune);font-weight:700;flex-shrink:0}
+.drl{width:32px;height:32px;display:flex;align-items:center;justify-content:center;font-size:11px;font-family:'Cinzel',serif;color:var(--gold);font-weight:700;flex-shrink:0}
+.dc{width:32px;height:32px;display:flex;align-items:center;justify-content:center;border:1px solid #000;cursor:pointer;font-size:14px;flex-shrink:0;
+  background:linear-gradient(160deg,#15120d,#0a0805);
+  box-shadow:inset 0 1px 0 rgba(255,200,120,.05);user-select:none;transition:background .1s}
+.dc:hover{background:#221b0e}
+.dc.self{background:#0a0806;cursor:default;color:#1e1608;box-shadow:inset 0 0 6px #000}
+.dc.ds{background:linear-gradient(160deg,#1d2c10,#0f1808);border-color:#2f4d18;color:#7ec43a;text-shadow:0 0 6px rgba(126,196,58,.5)}
+.dc.do{background:linear-gradient(160deg,#2a0d09,#160604);border-color:#5a1c14;color:#e0584a;text-shadow:0 0 6px rgba(224,88,74,.5)}
+.dep-leg{display:flex;gap:12px;margin-top:9px;font-size:12px;color:var(--gold-dim);flex-wrap:wrap;font-family:var(--body-font)}
+.dep-leg span{display:flex;align-items:center;gap:5px}
+.bsolve{position:relative;padding:13px 0;width:100%;
+  background:linear-gradient(180deg,#c0701a 0%,#8a4a0c 48%,#5a3008 49%,#7a4209 100%);
+  border:1px solid #d68e22;border-radius:5px;color:#fff4df;
+  font-size:16px;font-family:'MedievalSharp',serif;letter-spacing:2px;cursor:pointer;
+  text-shadow:0 1px 2px #3a1c00,0 0 8px rgba(255,200,120,.4);text-transform:uppercase;
+  box-shadow:inset 0 1px 0 rgba(255,225,170,.55),inset 0 -3px 8px rgba(0,0,0,.5),0 0 22px rgba(232,144,26,.35),0 4px 10px rgba(0,0,0,.6)}
+.bsolve:hover{background:linear-gradient(180deg,#e8901e 0%,#a85a0e 48%,#6e3a08 49%,#915012 100%);
+  box-shadow:inset 0 1px 0 rgba(255,235,190,.7),inset 0 -3px 8px rgba(0,0,0,.5),0 0 32px rgba(232,144,26,.6),0 4px 12px rgba(0,0,0,.6)}
+.bsolve:active{transform:translateY(1px)}
+.bg{background:linear-gradient(180deg,#7a4309,#4a2807);border:1px solid #b5781c;color:var(--ember-hi);
+  padding:8px 13px;border-radius:4px;cursor:pointer;font-size:13px;font-family:'MedievalSharp',serif;
+  box-shadow:inset 0 1px 0 rgba(255,210,140,.35),0 2px 5px rgba(0,0,0,.5);text-shadow:0 1px 2px #000}
+.bg:hover{background:linear-gradient(180deg,#955214,#5e330a)}
+.bg:disabled{background:#161208;border-color:#2a1c08;color:#3a2c14;cursor:default;box-shadow:none;text-shadow:none}
+.bs{background:linear-gradient(180deg,#221d14,#15110b);border:1px solid #000;color:var(--gold-dim);padding:7px 12px;border-radius:4px;cursor:pointer;font-size:13px;font-family:'MedievalSharp',serif;
+  box-shadow:inset 0 1px 0 rgba(255,200,120,.08),0 2px 4px rgba(0,0,0,.5)}
+.bs:hover{background:linear-gradient(180deg,#2c261a,#1c1710);color:var(--gold)}
+.steps{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:11px}
+.step{padding:7px 11px;border-radius:4px;font-size:13px;font-family:var(--body-font);border:1px solid #000;
+  background:linear-gradient(180deg,#1a160f,#100d08);color:#bfa066;line-height:1.5;
+  box-shadow:inset 0 1px 0 rgba(255,200,120,.06)}
+.step.done{background:linear-gradient(180deg,#16240e,#0d1607);border-color:#2f4d18;color:#8fd64a}
+.step.cur{background:linear-gradient(180deg,#4a2a06,#2c1804);border-color:var(--ember);color:var(--ember-hi);font-weight:600;
+  box-shadow:inset 0 1px 0 rgba(255,210,140,.25),0 0 14px rgba(232,144,26,.35)}
+.sbox{text-align:center;padding:16px;background:linear-gradient(180deg,#102008,#0a1405);border:1px solid #2f5018;border-radius:6px;
+  box-shadow:inset 0 0 22px rgba(126,196,58,.12)}
+.nosol{background:linear-gradient(180deg,#280a07,#160604);border:1px solid #5a1c14;border-radius:6px;padding:12px;text-align:center;color:#f06a5c;font-size:14px;font-family:'MedievalSharp',serif;display:none;
+  box-shadow:inset 0 0 16px rgba(140,31,18,.25)}
+.cg{display:grid;grid-template-columns:1fr 1fr;gap:6px}
+.ci{display:flex;align-items:center;gap:6px;background:linear-gradient(180deg,#14110b,#0a0804);border:1px solid #000;border-radius:4px;padding:6px 8px;
+  box-shadow:inset 0 1px 0 rgba(255,200,120,.05)}
+.ck{background:linear-gradient(180deg,#3a2c12,#22180a);border:1px solid #6a4a18;border-radius:3px;padding:2px 8px;font-family:'Cinzel',serif;font-weight:700;font-size:12px;color:var(--ember-hi);white-space:nowrap;
+  box-shadow:inset 0 1px 0 rgba(255,210,140,.25),0 1px 2px #000}
+.ca{font-size:12.5px;color:#bb9a5e;font-family:var(--body-font);line-height:1.4}
+.ctip{margin-top:9px;font-size:12.5px;color:#a9884f;border-top:1px solid #000;box-shadow:0 -1px 0 rgba(120,90,40,.14);padding-top:8px;line-height:1.6;font-family:var(--body-font)}
+.ctip b{color:#e8c98a}
+.leg{display:flex;justify-content:center;gap:14px;margin-top:7px;font-size:12px;color:var(--gold-dim);flex-wrap:wrap;font-family:var(--body-font)}
+#pres{display:none;position:fixed;inset:0;z-index:999;
+  background:radial-gradient(ellipse at 50% 25%,#1c1206,#040302);
+  flex-direction:column;align-items:center;justify-content:center;padding:22px;text-align:center}
+#pres::before{content:"";position:absolute;inset:0;pointer-events:none;box-shadow:inset 0 0 220px 50px rgba(0,0,0,.85)}
+#presCnt{font-family:'MedievalSharp',serif;color:var(--gold-dim);letter-spacing:4px;font-size:16px;text-transform:uppercase;position:relative}
+#presBig{margin:20px 0 8px;display:flex;gap:16px;flex-wrap:wrap;justify-content:center;position:relative}
+.presKey{display:inline-flex;align-items:center;justify-content:center;min-width:84px;height:96px;font-size:48px;font-weight:900;
+  font-family:'Cinzel',serif;color:#fff4df;
+  background:linear-gradient(180deg,#c0701a 0%,#8a4a0c 48%,#5a3008 49%,#7a4209 100%);
+  border:3px solid #d68e22;border-radius:12px;
+  box-shadow:inset 0 2px 0 rgba(255,225,170,.6),0 0 32px rgba(232,144,26,.5),0 6px 22px rgba(0,0,0,.7);
+  text-shadow:0 2px 4px #3a1c00}
+#presSub{font-size:22px;color:var(--gold);margin-bottom:10px;font-family:'Cinzel',serif;position:relative}
+#presState{font-family:monospace;font-size:16px;color:var(--gold-dim);letter-spacing:2px;position:relative}
+#presBarWrap{width:min(90%,420px);height:7px;background:#15110b;border-radius:4px;margin:18px 0 24px;overflow:hidden;box-shadow:inset 0 1px 2px #000;position:relative}
+#presBar{height:100%;width:0;background:linear-gradient(90deg,#7a4309,#e8901e,#ffc24d);transition:width .15s;box-shadow:0 0 10px rgba(232,144,26,.7)}
+#presNav{display:flex;gap:14px;flex-wrap:wrap;justify-content:center;position:relative}
+#presNav button{font-family:'MedievalSharp',serif;font-size:16px;padding:12px 24px;border-radius:8px;cursor:pointer}
+.pnav-main{background:linear-gradient(180deg,#c0701a,#7a4209);border:2px solid #d68e22;color:#fff4df;
+  box-shadow:inset 0 1px 0 rgba(255,225,170,.5),0 0 18px rgba(232,144,26,.4)}
+.pnav-sec{background:linear-gradient(180deg,#221d14,#15110b);border:1px solid #4a3a1e;color:var(--gold)}
+#presHint{position:absolute;bottom:16px;font-size:12px;color:var(--rune);font-family:var(--body-font)}
+a{color:var(--ember-hi)}
+code{background:#15110b;border:1px solid #2a1c08;border-radius:3px;padding:1px 4px;color:var(--gold);font-size:.95em}
+textarea{background:#0a0806 !important;color:var(--gold) !important;border:1px solid #2a1c08 !important}
+@media (min-width:1180px){
+  body{padding:12px 22px 16px}
+  h1{font-size:34px}
+  .titlerule{margin:3px auto 0}
+  .wrap{ max-width:1680px;margin:10px auto 0; display:block; column-count:3;column-gap:18px; }
+  .wrap > *{ break-inside:avoid;-webkit-column-break-inside:avoid;page-break-inside:avoid; margin:0 0 14px;width:100%; }
+  .card{padding:12px 14px}
+  .ct{margin-bottom:9px;padding-bottom:6px}
+  .hint{margin-bottom:8px;font-size:13px;line-height:1.6}
+  #ss .bsolve{padding:12px 0}
+  .steps{max-height:none}
+}
+@media (min-width:1600px){ .wrap{column-gap:24px} }
+/* ── Anzeigen / Ads ── */
+.adwrap{max-width:1680px;margin:14px auto 0;text-align:center;min-height:1px}
+.adlabel{font-family:var(--body-font);font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--rune);margin-bottom:3px}
+ins.adsbygoogle{display:block}
+#adResult{display:none}
+/* ── Steuerungs-Schema-Umschalter ── */
+.schemesel{display:flex;gap:6px;margin-bottom:10px}
+.schemesel button{flex:1;font-family:'MedievalSharp',serif;font-size:12px;letter-spacing:.5px;padding:7px 8px;border-radius:4px;cursor:pointer;
+  background:linear-gradient(180deg,#221d14,#15110b);border:1px solid #4a3a1e;color:var(--gold-dim);
+  box-shadow:inset 0 1px 0 rgba(255,200,120,.08),0 2px 4px rgba(0,0,0,.5)}
+.schemesel button:hover{color:var(--gold)}
+.schemesel button.active{background:linear-gradient(180deg,#7a4309,#4a2807);border-color:#b5781c;color:var(--ember-hi);
+  box-shadow:inset 0 1px 0 rgba(255,210,140,.35),0 0 12px rgba(232,144,26,.35)}
+.ctrlnote{margin-top:9px;font-size:12px;color:#a9884f;font-family:var(--body-font);line-height:1.5;display:none}
+</style>
+</head>
+<body>
+
+<div class="langsel">
+  <button id="langDe" onclick="setLang('de')">DE</button>
+  <button id="langEn" onclick="setLang('en')">EN</button>
+</div>
+
+<div class="sub" data-i18n="sub">Schloss &amp; Riegel</div>
+<h1 data-i18n="h1">Schloss&#8209;Knacker</h1>
+<div class="titlerule"><span>&#10070; &#9874; &#10070;</span></div>
+
+<!-- ANZEIGE oben / TOP AD (laedt einmal beim Seitenaufruf) -->
+<div class="adwrap">
+  <div class="adlabel" data-i18n="ad_label">Anzeige</div>
+  <ins id="adTopIns" class="adsbygoogle" style="display:block"
+       data-ad-client="ca-pub-5757832187265723"
+       data-ad-slot="1234567890"
+       data-ad-format="auto"
+       data-full-width-responsive="true"></ins>
+</div>
+
+<div class="wrap">
+
+  <div class="card">
+    <div class="ct" data-i18n="c1_title">① Anzahl der Riegel</div>
+    <div class="nr">
+      <input type="range" id="ns" min="2" max="8" value="6" oninput="numChange(this.value)">
+      <div class="nd" id="nd">6</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="ct" data-i18n="c2_title">② Schloss &amp; Pin-Positionen</div>
+    <div class="hint" data-i18n-html="c2_hint">Tippe in jeder Zeile an, <b>wo der Pin im Spiel steht</b>. Die hervorgehobene <b>mittlere Spalte</b> ist das Ziel — dort müssen am Ende alle Pins stehen.<br>Die Anordnung folgt dem Spiel: <b>R1 unten links</b>, höhere Riegel treppenförmig nach oben rechts.</div>
+    <div id="pr"></div>
+    <div class="leg" data-i18n="c2_leg">🔴 noch falsch &nbsp;|&nbsp; 🟡 Mitte erreicht &nbsp;|&nbsp; 🔵 aktiver Riegel</div>
+  </div>
+
+  <div class="card">
+    <div class="ct" data-i18n="c3_title">③ Verbindungen — in PIN-Richtung gedacht</div>
+    <div class="hint" data-i18n-html="c3_hint">Schiebe Riegel <b>Zeile</b> im Spiel so, dass sein <b>Pin nach rechts</b> wandert. Schau auf jeden anderen Riegel <b>Spalte</b>:<br>
+    Pin wandert <span style="color:#7ec43a">MIT (auch rechts) → ↔ gleich</span> · <span style="color:#e0584a">GEGEN (nach links) → ⇄ entgegen</span> · bewegt sich nicht → leer.<br>
+    <span style="color:#b89055">Tippe eine Zelle: gleich → entgegen → leer.</span></div>
+    <div class="dep-wrap"><div id="dm"></div></div>
+    <div class="dep-leg" data-i18n-html="c3_leg">
+      <span><span style="display:inline-block;width:13px;height:13px;background:#142008;border:1px solid #2a4a18;border-radius:2px"></span> Pin gleiche Richtung ↔</span>
+      <span><span style="display:inline-block;width:13px;height:13px;background:#200808;border:1px solid #4a1818;border-radius:2px"></span> Pin entgegengesetzt ⇄</span>
+      <span><span style="display:inline-block;width:13px;height:13px;background:#080604;border:1px solid #1a1208;border-radius:2px"></span> keine</span>
+    </div>
+  </div>
+
+  <div id="ss"><button class="bsolve" onclick="doSolve()" data-i18n="solve">⚙ Lösung berechnen</button></div>
+  <div class="nosol" id="nm" data-i18n="nosol">Keine Lösung gefunden — Verbindungen oder Positionen prüfen.</div>
+
+  <div class="card" id="sc" style="display:none">
+    <div class="ct" id="stit" data-i18n="seq_title">④ Zugfolge</div>
+    <div id="dlbar" style="display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-bottom:11px">
+      <button class="bg" id="ahkDl" onclick="downloadAHK()" style="flex:1;min-width:215px;padding:10px 14px;font-size:13px;text-align:center" data-i18n="ahk_dl">⬇ Tasten-Makro herunterladen (.ahk)</button>
+      <button class="bs" id="ahkBtn" onclick="copyAHK()" data-i18n="ahk_copy">📋 Skript kopieren</button>
+    </div>
+    <div class="hint" style="color:#a98a52" data-i18n-html="seq_hint">Jeder Schritt zeigt die Taste <strong style="color:#c8a050">und</strong> den Schloss-Zustand danach. Vergleiche mit dem Spiel: Beim ersten Schritt, der <strong>nicht passt</strong>, ist die Kopplung dieses Riegels falsch erfasst.</div>
+    <div class="steps" id="sd"></div>
+    <div id="stc" style="display:flex;gap:8px;align-items:center;flex-wrap:wrap">
+      <button class="bs" id="pb" onclick="prevStep()" data-i18n="back">◀ Zurück</button>
+      <button class="bg" id="nb" onclick="nextStep()" data-i18n="next_move">Nächster Zug</button>
+      <button class="bg" onclick="openPresenter()" data-i18n="presentation" data-i18n-title="presentation_title" title="Großer Mitlauf-Modus fürs Handy/2. Monitor">⛶ Präsentation</button>
+      <button class="bs" onclick="resetSol()" data-i18n="reset">Reset</button>
+      <button class="bg" onclick="fullReset()" data-i18n="newlock">Neues Schloss</button>
+      <span id="sk" style="font-size:13px;color:#ffcc44;font-family:'Cinzel',serif;margin-left:2px"></span>
+    </div>
+    <div style="margin-top:9px;border-top:1px solid #2a1c08;padding-top:8px">
+      <button class="bs" id="ahkBtn2" onclick="toggleAHK()" data-i18n="ahk_toggle" data-i18n-title="ahk_toggle_title" title="Anleitung und Skript-Vorschau">⌨ Anleitung &amp; Skript-Vorschau ein-/ausblenden</button>
+      <div id="ahkWrap" style="display:block;margin-top:8px">
+        <div class="hint" data-i18n-html="ahk_guide">
+          <b>So spielst du die Lösung automatisch ab:</b><br>
+          1. <b>AutoHotkey v2</b> für Windows installieren — <a href="https://www.autohotkey.com/download/" target="_blank" rel="noopener" style="color:#ffcc44;text-decoration:underline">autohotkey.com/download</a> (kostenlos, Datei <code>AutoHotkey_2.0_setup.exe</code>).<br>
+          2. Skript unten als <code>.ahk</code>-Datei <b>herunterladen</b> (oder kopieren und selbst als <code>.ahk</code> speichern).<br>
+          3. Die <code>.ahk</code>-Datei per Doppelklick starten, dann ins Spiel wechseln (Spiel muss im Fokus sein).<br>
+          4. Im Spiel: <b>F8</b> = nächster Zug · <b>F7</b> = Zähler zurücksetzen.
+        </div>
+        <textarea id="ahk" readonly style="width:100%;height:130px;background:#080604;color:#c8a050;border:1px solid #2a1c08;border-radius:4px;font-family:monospace;font-size:10px;padding:6px;white-space:pre"></textarea>
+      </div>
+    </div>
+    <div class="sbox" id="sb" style="display:none;margin-top:10px">
+      <div style="font-size:24px">🔓</div>
+      <div style="color:#88cc44;font-family:'Cinzel',serif;font-size:14px;margin-top:4px" data-i18n="solved">Schloss geknackt!</div>
+      <button onclick="fullReset()" style="margin-top:10px;background:none;border:1px solid #336622;color:#66aa44;padding:5px 14px;border-radius:4px;cursor:pointer;font-size:11px;font-family:'Cinzel',serif" data-i18n="newlock">Neues Schloss</button>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="ct" id="ctrlTitle">⌨ Steuerung im Spiel</div>
+    <div class="schemesel">
+      <button id="schemeKb" onclick="setScheme('kb')">⌨ <span data-i18n="scheme_kb">Tastatur</span></button>
+      <button id="schemePad" onclick="setScheme('pad')">🎮 <span data-i18n="scheme_pad">Controller</span></button>
+    </div>
+    <div class="cg" id="ctrlGrid"></div>
+    <div class="ctrlnote" id="ctrlNote"></div>
+    <div class="ctip" data-i18n-html="ctrl_tip">💡 Schnell-Eingabe: Tippe direkt auf ein Loch, um den Pin zu setzen. Oder mit Tastatur <b>W/S</b> = Riegel wählen, <b>A/D</b> = aktiven Pin schieben.</div>
+  </div>
+
+</div>
+
+<!-- ANZEIGE nach Berechnung / RESULT AD (wird einmal sichtbar, sobald eine Loesung berechnet wurde) -->
+<div class="adwrap" id="adResult">
+  <div class="adlabel" data-i18n="ad_label">Anzeige</div>
+  <ins id="adResultIns" class="adsbygoogle" style="display:block"
+       data-ad-client="ca-pub-5757832187265723"
+       data-ad-slot="0987654321"
+       data-ad-format="auto"
+       data-full-width-responsive="true"></ins>
+</div>
+
+<div id="pres">
+  <div id="presCnt">Zug 1 / 1</div>
+  <div id="presBig"></div>
+  <div id="presSub"></div>
+  <div id="presBarWrap"><div id="presBar"></div></div>
+  <div id="presState"></div>
+  <div id="presNav">
+    <button class="pnav-sec" onclick="prevStep()" data-i18n="pres_back">◀ Zurück</button>
+    <button class="pnav-main" onclick="nextStep()" data-i18n="pres_next">Weiter ▶</button>
+    <button class="pnav-sec" onclick="closePresenter()" data-i18n="pres_close">✕ Schließen</button>
+  </div>
+  <div id="presHint" data-i18n="pres_hint">Tastatur: → / Leertaste = weiter · ← = zurück · Esc = schließen</div>
+</div>
+
+<script>
+// ── I18N: automatische Lokalisierung (Deutsch / Englisch) ──
+const I18N={
+  de:{
+    title:'Gothic Schloss-Knacker',
+    ad_label:'Anzeige',
+    sub:'Schloss &amp; Riegel',
+    h1:'Schloss&#8209;Knacker',
+    c1_title:'① Anzahl der Riegel',
+    c2_title:'② Schloss & Pin-Positionen',
+    c2_hint:'Tippe in jeder Zeile an, <b>wo der Pin im Spiel steht</b>. Die hervorgehobene <b>mittlere Spalte</b> ist das Ziel — dort müssen am Ende alle Pins stehen.<br>Die Anordnung folgt dem Spiel: <b>R1 unten links</b>, höhere Riegel treppenförmig nach oben rechts.',
+    c2_leg:'🔴 noch falsch &nbsp;|&nbsp; 🟡 Mitte erreicht &nbsp;|&nbsp; 🔵 aktiver Riegel',
+    c3_title:'③ Verbindungen — in PIN-Richtung gedacht',
+    c3_hint:'Schiebe Riegel <b>Zeile</b> im Spiel so, dass sein <b>Pin nach rechts</b> wandert. Schau auf jeden anderen Riegel <b>Spalte</b>:<br>Pin wandert <span style="color:#7ec43a">MIT (auch rechts) → ↔ gleich</span> · <span style="color:#e0584a">GEGEN (nach links) → ⇄ entgegen</span> · bewegt sich nicht → leer.<br><span style="color:#b89055">Tippe eine Zelle: gleich → entgegen → leer.</span>',
+    c3_leg:'<span><span style="display:inline-block;width:13px;height:13px;background:#142008;border:1px solid #2a4a18;border-radius:2px"></span> Pin gleiche Richtung ↔</span><span><span style="display:inline-block;width:13px;height:13px;background:#200808;border:1px solid #4a1818;border-radius:2px"></span> Pin entgegengesetzt ⇄</span><span><span style="display:inline-block;width:13px;height:13px;background:#080604;border:1px solid #1a1208;border-radius:2px"></span> keine</span>',
+    solve:'⚙ Lösung berechnen',
+    nosol:'Keine Lösung gefunden — Verbindungen oder Positionen prüfen.',
+    seq_title:'④ Zugfolge',
+    ahk_dl:'⬇ Tasten-Makro herunterladen (.ahk)',
+    ahk_copy:'📋 Skript kopieren',
+    seq_hint:'Jeder Schritt zeigt die Taste <strong style="color:#c8a050">und</strong> den Schloss-Zustand danach. Vergleiche mit dem Spiel: Beim ersten Schritt, der <strong>nicht passt</strong>, ist die Kopplung dieses Riegels falsch erfasst.',
+    back:'◀ Zurück',
+    next_move:'Nächster Zug',
+    presentation:'⛶ Präsentation',
+    presentation_title:'Großer Mitlauf-Modus fürs Handy/2. Monitor',
+    reset:'Reset',
+    ahk_toggle:'⌨ Anleitung & Skript-Vorschau ein-/ausblenden',
+    ahk_toggle_title:'Anleitung und Skript-Vorschau',
+    ahk_guide:'<b>So spielst du die Lösung automatisch ab:</b><br>1. <b>AutoHotkey v2</b> für Windows installieren — <a href="https://www.autohotkey.com/download/" target="_blank" rel="noopener" style="color:#ffcc44;text-decoration:underline">autohotkey.com/download</a> (kostenlos, Datei <code>AutoHotkey_2.0_setup.exe</code>).<br>2. Skript unten als <code>.ahk</code>-Datei <b>herunterladen</b> (oder kopieren und selbst als <code>.ahk</code> speichern).<br>3. Die <code>.ahk</code>-Datei per Doppelklick starten, dann ins Spiel wechseln (Spiel muss im Fokus sein).<br>4. Im Spiel: <b>F8</b> = nächster Zug · <b>F7</b> = Zähler zurücksetzen.',
+    solved:'Schloss geknackt!',
+    newlock:'Neues Schloss',
+    ctrl_title:'Steuerung im Spiel',
+    scheme_kb:'Tastatur',
+    scheme_pad:'Controller',
+    ctrl_pad_note:'🎮 Bewegung: linker Stick oder Steuerkreuz. Die Tasten für Abbrechen/Zurücksetzen können je nach Spiel und Belegung abweichen.',
+    ctrl_ad:'Scheibe ◀/▶ (Pin läuft gegenläufig!)',
+    ctrl_ws:'Riegel wechseln',
+    ctrl_r:'Zurücksetzen',
+    ctrl_esc:'Abbrechen',
+    ctrl_tip:'💡 Schnell-Eingabe: Tippe direkt auf ein Loch, um den Pin zu setzen. Oder mit Tastatur <b>W/S</b> = Riegel wählen, <b>A/D</b> = aktiven Pin schieben.',
+    pres_back:'◀ Zurück',
+    pres_next:'Weiter ▶',
+    pres_close:'✕ Schließen',
+    pres_hint:'Tastatur: → / Leertaste = weiter · ← = zurück · Esc = schließen',
+    moves_word:'Züge',
+    move_word:'Zug',
+    state_lock:'→ Schloss: ',
+    lock_colon:'Schloss: ',
+    already_open:'✓ Bereits offen!',
+    copied:'✓ kopiert',
+    saved:'✓ gespeichert',
+    bolt:'Riegel',
+    then:'danach → ',
+    pres_done:'Fertig — Schloss sollte offen sein!',
+    dir_right:'Pin ▶ rechts',
+    dir_left:'◀ links Pin',
+    ahk_c1:'Gothic Schloss-Knacker - automatisch erzeugte Zugfolge ({n} Zuege)',
+    ahk_c2:'Bedienung:  F8 = naechster Zug   |   F7 = Zaehler zuruecksetzen',
+    ahk_c3:'Das Spiel muss im Fokus sein. Pause zwischen Tasten bei Bedarf erhoehen.',
+    ahk_c4:'ms zwischen Tastendruecken',
+    ahk_done:'fertig',
+    ahk_move:'Zug',
+    ahk_reset:'zurueckgesetzt'
+  },
+  en:{
+    title:'Gothic Lock Cracker',
+    ad_label:'Advertisement',
+    sub:'Lock &amp; Bolt',
+    h1:'Lock&#8209;Cracker',
+    c1_title:'① Number of bolts',
+    c2_title:'② Lock & pin positions',
+    c2_hint:'In each row, tap <b>where the pin sits in the game</b>. The highlighted <b>center column</b> is the goal — every pin must end up there.<br>The layout follows the game: <b>R1 bottom left</b>, higher bolts step up toward the top right.',
+    c2_leg:'🔴 still wrong &nbsp;|&nbsp; 🟡 centered &nbsp;|&nbsp; 🔵 active bolt',
+    c3_title:'③ Connections — thought of in PIN direction',
+    c3_hint:'Move bolt <b>row</b> in the game so its <b>pin travels right</b>. Watch every other bolt <b>column</b>:<br>pin moves <span style="color:#7ec43a">WITH (also right) → ↔ same</span> · <span style="color:#e0584a">AGAINST (to the left) → ⇄ opposite</span> · does not move → empty.<br><span style="color:#b89055">Tap a cell to cycle: same → opposite → empty.</span>',
+    c3_leg:'<span><span style="display:inline-block;width:13px;height:13px;background:#142008;border:1px solid #2a4a18;border-radius:2px"></span> Pin same direction ↔</span><span><span style="display:inline-block;width:13px;height:13px;background:#200808;border:1px solid #4a1818;border-radius:2px"></span> Pin opposite ⇄</span><span><span style="display:inline-block;width:13px;height:13px;background:#080604;border:1px solid #1a1208;border-radius:2px"></span> none</span>',
+    solve:'⚙ Compute solution',
+    nosol:'No solution found — check connections or positions.',
+    seq_title:'④ Move sequence',
+    ahk_dl:'⬇ Download key macro (.ahk)',
+    ahk_copy:'📋 Copy script',
+    seq_hint:'Each step shows the key <strong style="color:#c8a050">and</strong> the lock state afterwards. Compare with the game: at the first step that <strong>does not match</strong>, this bolt coupling was recorded wrong.',
+    back:'◀ Back',
+    next_move:'Next move',
+    presentation:'⛶ Presentation',
+    presentation_title:'Large follow-along mode for phone / 2nd monitor',
+    reset:'Reset',
+    ahk_toggle:'⌨ Toggle guide & script preview',
+    ahk_toggle_title:'Guide and script preview',
+    ahk_guide:'<b>How to auto-play the solution:</b><br>1. Install <b>AutoHotkey v2</b> for Windows — <a href="https://www.autohotkey.com/download/" target="_blank" rel="noopener" style="color:#ffcc44;text-decoration:underline">autohotkey.com/download</a> (free, file <code>AutoHotkey_2.0_setup.exe</code>).<br>2. <b>Download</b> the script below as a <code>.ahk</code> file (or copy it and save it as <code>.ahk</code> yourself).<br>3. Double-click the <code>.ahk</code> file to start it, then switch to the game (the game must be focused).<br>4. In the game: <b>F8</b> = next move · <b>F7</b> = reset counter.',
+    solved:'Lock cracked!',
+    newlock:'New lock',
+    ctrl_title:'In-game controls',
+    scheme_kb:'Keyboard',
+    scheme_pad:'Controller',
+    ctrl_pad_note:'🎮 Movement: left stick or D-pad. The buttons for cancel/reset may differ depending on the game and your bindings.',
+    ctrl_ad:'Disc ◀/▶ (pin moves opposite!)',
+    ctrl_ws:'Switch bolt',
+    ctrl_r:'Reset',
+    ctrl_esc:'Cancel',
+    ctrl_tip:'💡 Quick input: tap a hole directly to place the pin. Or use the keyboard <b>W/S</b> = choose bolt, <b>A/D</b> = move active pin.',
+    pres_back:'◀ Back',
+    pres_next:'Next ▶',
+    pres_close:'✕ Close',
+    pres_hint:'Keyboard: → / Space = next · ← = back · Esc = close',
+    moves_word:'moves',
+    move_word:'Move',
+    state_lock:'→ lock: ',
+    lock_colon:'Lock: ',
+    already_open:'✓ Already open!',
+    copied:'✓ copied',
+    saved:'✓ saved',
+    bolt:'Bolt',
+    then:'then → ',
+    pres_done:'Done — the lock should be open!',
+    dir_right:'pin ▶ right',
+    dir_left:'◀ left pin',
+    ahk_c1:'Gothic Lock Cracker - auto-generated move sequence ({n} moves)',
+    ahk_c2:'Controls:  F8 = next move   |   F7 = reset counter',
+    ahk_c3:'The game must be focused. Increase the delay between keys if needed.',
+    ahk_c4:'ms between key presses',
+    ahk_done:'done',
+    ahk_move:'Move',
+    ahk_reset:'reset'
+  }
+};
+let lang='de';
+function t(k){ const L=I18N[lang]||I18N.de; return (k in L)?L[k]:(I18N.de[k]!==undefined?I18N.de[k]:k); }
+function setLang(l){
+  lang=(l==='en')?'en':'de';
+  try{ localStorage.setItem('gsk_lang',lang); }catch(e){}
+  applyI18n();
+}
+function setHTML(el,html){ if(el) el['inner'+'HTML']=html; }
+function applyI18n(){
+  document.documentElement.lang=lang;
+  document.title=t('title');
+  document.querySelectorAll('[data-i18n]').forEach(el=>{ setHTML(el,t(el.dataset.i18n)); });
+  document.querySelectorAll('[data-i18n-html]').forEach(el=>{ setHTML(el,t(el.dataset.i18nHtml)); });
+  document.querySelectorAll('[data-i18n-title]').forEach(el=>{ el.title=t(el.dataset.i18nTitle); });
+  document.getElementById('langDe').classList.toggle('active',lang==='de');
+  document.getElementById('langEn').classList.toggle('active',lang==='en');
+  drawControls();
+  if(sol){ drawSteps(); buildAHK(); if(presOpen()) presUpdate(); }
+}
+function initLang(){
+  let saved=null;
+  try{ saved=localStorage.getItem('gsk_lang'); }catch(e){}
+  if(saved==='de'||saved==='en'){ lang=saved; }
+  else { const nav=(navigator.language||navigator.userLanguage||'de').toLowerCase(); lang=nav.startsWith('en')?'en':'de'; }
+}
+// ── STATE ──
+const POS=7, CTR=3;
+let N=6;
+let pins=Array(N).fill(CTR);
+let deps=Array.from({length:N},()=>Array(N).fill(0));
+let activeR=0, sol=null, si=0, simP=null, isSolved=false, solStates=null;
+
+let keyRight='A';
+const keyLeft =()=>keyRight==='A'?'D':'A';
+const keyForDir=dir=>dir===1?keyRight:keyLeft();
+const arrowForDir=dir=>dir===1?t('dir_right'):t('dir_left');
+
+// ── LOGIC: ein Zug ist BLOCKIERT, wenn ein beteiligter Pin schon an der Wand steht ──
+const clamp=v=>Math.max(0,Math.min(POS-1,v));
+const allMid=p=>p.every(v=>v===CTR);
+
+function tryMove(p, d, idx, dir) {
+  if (dir === 1  && p[idx] === POS-1) return null;
+  if (dir === -1 && p[idx] === 0)     return null;
+  for (let tt = 0; tt < p.length; tt++) {
+    if (tt === idx) continue;
+    if (d[idx][tt] === 1) {
+      if (dir === 1  && p[tt] === POS-1) return null;
+      if (dir === -1 && p[tt] === 0)     return null;
+    }
+    if (d[idx][tt] === -1) {
+      if (dir === 1  && p[tt] === 0)     return null;
+      if (dir === -1 && p[tt] === POS-1) return null;
+    }
+  }
+  const n = [...p];
+  n[idx] = n[idx] + dir;
+  for (let tt = 0; tt < n.length; tt++) {
+    if (tt === idx) continue;
+    if (d[idx][tt] === 1)  n[tt] = n[tt] + dir;
+    if (d[idx][tt] === -1) n[tt] = n[tt] - dir;
+  }
+  return n;
+}
+
+function bfs(initP, d) {
+  if (allMid(initP)) return [];
+  const key = s => s.join(',');
+  const queue = [{p: initP, moves: []}];
+  const vis = new Set([key(initP)]);
+  const MAXV = 2000000;
+  while (queue.length) {
+    if (vis.size > MAXV) return null;
+    const {p, moves} = queue.shift();
+    for (let z = 0; z < p.length; z++) {
+      for (const dir of [-1, 1]) {
+        const nx = tryMove(p, d, z, dir);
+        if (!nx) continue;
+        const k = key(nx);
+        if (!vis.has(k)) {
+          vis.add(k);
+          const nm = [...moves, {z, dir}];
+          if (allMid(nx)) return nm;
+          queue.push({p: nx, moves: nm});
+        }
+      }
+    }
+  }
+  return null;
+}
+
+// ── LOCK GRID (Eingabe + Vorschau) ──
+function drawPins(){
+  const dp=simP||pins;
+  const editable=!simP;
+  const pr=document.getElementById('pr');
+  pr.className=editable?'':'lg-readonly';
+  const step=18;
+  let h='';
+  for(let i=N-1;i>=0;i--){
+    const v=dp[i], atC=v===CTR, isA=i===activeR;
+    h+=`<div class="lg-row${isA?' active':''}" style="margin-left:${i*step}px">`;
+    h+=`<div class="lg-label"${editable?` onclick="pick(${i})"`:''}>R${i+1}</div><div class="lg-track">`;
+    for(let c=0;c<POS;c++){
+      const here=c===v;
+      const pinCls=here?(atC?' pin-ok':isA?' pin-act':' pin-set'):'';
+      const cls='lg-cell'+(c===CTR?' center':'')+pinCls;
+      h+=`<div class="${cls}"${editable?` onclick="setCell(${i},${c})"`:''}>${here?'<span class="lg-dot"></span>':''}</div>`;
+    }
+    h+=`</div><div class="lg-val${atC?' ok':''}">${atC?'✓':v+1}</div></div>`;
+  }
+  setHTML(pr,h);
+}
+function setCell(i,c){ if(simP) return; pins[i]=c; activeR=i; clearSol(); all(); }
+function pick(i){ if(simP) return; activeR=i; drawPins(); }
+
+// ── ABHÄNGIGKEITS-MATRIX ──
+function drawMatrix(){
+  let h='<div class="dep-header-row"><div class="dhl"></div>';
+  for(let tt=0;tt<N;tt++) h+=`<div class="dhl">R${tt+1}</div>`;
+  h+='</div>';
+  for(let f=0;f<N;f++){
+    h+=`<div class="dep-row"><div class="drl">R${f+1}</div>`;
+    for(let tt=0;tt<N;tt++){
+      if(f===tt){h+=`<div class="dc self">—</div>`;continue;}
+      const v=deps[f][tt];
+      const cls='dc'+(v===1?' ds':v===-1?' do':'');
+      const lbl=v===1?'↔':v===-1?'⇄':'·';
+      h+=`<div class="${cls}" onclick="cyc(${f},${tt})" title="R${f+1}→R${tt+1}">${lbl}</div>`;
+    }
+    h+='</div>';
+  }
+  setHTML(document.getElementById('dm'),h);
+}
+function cyc(f,tt){deps[f][tt]=deps[f][tt]===0?1:deps[f][tt]===1?-1:0;drawMatrix();}
+
+// ── LÖSUNG mit W/S/A/D-Anweisungen ──
+function buildSteps(moves){
+  const steps=[];
+  let cur=0;
+  for(const {z,dir} of moves){
+    const navKeys=[];
+    if(z!==cur){
+      const diff=z-cur;
+      const k=diff>0?'W▲':'S▼';
+      const cnt=Math.abs(diff);
+      for(let i=0;i<cnt;i++) navKeys.push(k);
+    }
+    const pinKey=keyForDir(dir);
+    const pinDir=arrowForDir(dir);
+    steps.push({z,dir,navKeys,pinKey,pinDir,fromR:cur});
+    cur=z;
+  }
+  return steps;
+}
+
+function drawSteps(){
+  if(!sol) return;
+  const full=buildSteps(sol);
+  let st=[...pins];
+  let h='';
+  full.forEach((s,i)=>{
+    const cls='step'+(i<si?' done':i===si?' cur':'');
+    let lbl=`${i+1}. `;
+    if(s.navKeys.length) lbl+=s.navKeys.map(dispKey).join(' ')+' → ';
+    lbl+=`R${s.z+1}: <b>${dispKey(s.pinKey)}</b> <span style="color:#a98a52">(${s.pinDir})</span>`;
+    const nx=tryMove(st,deps,s.z,s.dir); if(nx) st=nx;
+    const stateStr=st.map(v=>v+1).join(' ');
+    lbl+=`<br><span style="font-size:10px;color:#8a7548">${t('state_lock')}${stateStr}</span>`;
+    h+=`<div class="${cls}">${lbl}</div>`;
+  });
+  setHTML(document.getElementById('sd'),h);
+  const cnt=sol.length;
+  document.getElementById('stit').textContent=`${t('seq_title')} — ${cnt} ${t('moves_word')}`;
+  const nb=document.getElementById('nb');
+  nb.textContent=`${t('next_move')} (${Math.min(si+1,cnt)}/${cnt})`;
+  nb.disabled=si>=cnt;
+  const sk=document.getElementById('sk');
+  if(si<cnt){
+    const s=full[si];
+    let hint='';
+    if(s.navKeys.length) hint+=s.navKeys.map(dispKey).join(' ')+' → ';
+    hint+=`R${s.z+1}: ${dispKey(s.pinKey)} (${s.pinDir})`;
+    setHTML(sk,'▶ '+hint);
+  } else {
+    sk.textContent='';
+  }
+}
+
+// ── EVENTS ──
+function numChange(n){
+  N=parseInt(n);document.getElementById('nd').textContent=N;
+  pins=Array(N).fill(CTR);deps=Array.from({length:N},()=>Array(N).fill(0));
+  activeR=0;clearSol();all();
+}
+function setAR(i){activeR=i;drawPins();}
+function setPin(i,hi,e){
+  if(e)e.stopPropagation();
+  if(simP) return;
+  pins[i]=hi; activeR=i; clearSol(); all();
+}
+function mv(i,d,e){
+  e.stopPropagation();
+  const nx=tryMove(pins,deps,i,d);
+  if(nx) { pins=[...nx]; }
+  activeR=i;clearSol();all();
+}
+
+function doSolve(){
+  document.getElementById('nm').style.display='none';
+  const r=bfs(pins,deps);
+  if(!r){document.getElementById('nm').style.display='block';return;}
+  showResultAd();   // engagement-basierte Impression: laedt den Ergebnis-Slot einmalig
+  sol=r;si=0;simP=[...pins];isSolved=false;
+  solStates=[[...pins]];
+  let st=[...pins];
+  for(const {z,dir} of r){ const nx=tryMove(st,deps,z,dir); st=nx?nx:st; solStates.push([...st]); }
+  if(r.length>0) activeR=r[0].z;
+  document.getElementById('ss').style.display='none';
+  document.getElementById('sc').style.display='';
+  document.getElementById('stc').style.display='flex';
+  document.getElementById('sb').style.display='none';
+  if(r.length===0){
+    setHTML(document.getElementById('sd'),`<div style="color:#88cc44;font-size:14px;text-align:center">${t('already_open')}</div>`);
+    document.getElementById('stc').style.display='none';
+  }
+  buildAHK();
+  drawSteps();drawPins();
+  if(presOpen()) presUpdate();
+}
+
+function gotoStep(i){
+  if(!sol) return;
+  si=Math.max(0,Math.min(sol.length,i));
+  simP=[...solStates[si]];
+  isSolved = si>=sol.length;
+  activeR = si<sol.length ? sol[si].z : (sol.length?sol[sol.length-1].z:0);
+  if(isSolved){
+    document.getElementById('stc').style.display='none';
+    document.getElementById('sb').style.display='';
+    document.getElementById('sk').textContent='';
+  } else {
+    document.getElementById('stc').style.display='flex';
+    document.getElementById('sb').style.display='none';
+  }
+  drawSteps();drawPins();
+  if(presOpen()) presUpdate();
+}
+function nextStep(){ if(sol) gotoStep(si+1); }
+function prevStep(){ if(sol) gotoStep(si-1); }
+
+function clearSol(){
+  sol=null;si=0;simP=null;isSolved=false;solStates=null;
+  document.getElementById('ss').style.display='';
+  document.getElementById('sc').style.display='none';
+  document.getElementById('nm').style.display='none';
+  const sk=document.getElementById('sk');if(sk)sk.textContent='';
+  if(presOpen()) closePresenter();
+}
+function resetSol(){clearSol();all();}
+function fullReset(){ pins=Array(N).fill(CTR); deps=Array.from({length:N},()=>Array(N).fill(0)); activeR=0; clearSol(); all(); }
+function all(){drawPins();drawMatrix();}
+
+// ── PRÄSENTATIONS-/MITLAUF-MODUS ──
+function presOpen(){ const o=document.getElementById('pres'); return o && o.style.display==='flex'; }
+function openPresenter(){ if(!sol) return; document.getElementById('pres').style.display='flex'; presUpdate(); }
+function closePresenter(){ const o=document.getElementById('pres'); if(o) o.style.display='none'; }
+function presUpdate(){
+  if(!sol) return;
+  const full=buildSteps(sol), cnt=sol.length;
+  const big=document.getElementById('presBig'), sub=document.getElementById('presSub'),
+        cntEl=document.getElementById('presCnt'), stEl=document.getElementById('presState'),
+        bar=document.getElementById('presBar');
+  cntEl.textContent=`${t('move_word')} ${Math.min(si+1,cnt)} / ${cnt}`;
+  bar.style.width=(cnt? (si/cnt*100):100)+'%';
+  if(si>=cnt){
+    setHTML(big,'🔓'); sub.textContent=t('pres_done');
+    stEl.textContent=t('lock_colon')+solStates[cnt].map(v=>v+1).join(' ');
+    return;
+  }
+  const s=full[si];
+  let keys=[];
+  s.navKeys.forEach(k=>{ const g=dispKey(k); keys.push(ctrlScheme==='pad'?g:g.replace(/[▲▼◀▶]/g,'')); });
+  keys.push(dispKey(s.pinKey));
+  setHTML(big,keys.map(k=>`<span class="presKey">${k}</span>`).join(''));
+  setHTML(sub,`${t('bolt')} <b style="color:#ffcc44">R${s.z+1}</b> · ${s.pinDir}`);
+  stEl.textContent=t('then')+solStates[si+1].map(v=>v+1).join(' ');
+}
+
+// ── MAKRO-EXPORT (AutoHotkey v2) ──
+function rawKeys(){
+  const full=buildSteps(sol);
+  return full.map(s=>{
+    const arr=s.navKeys.map(k=>k.includes('W')?'w':'s');
+    arr.push(s.pinKey.toLowerCase());
+    return arr;
+  });
+}
+// ── FINAL: Initial R, Sequenz, Automatisches Beenden ──
+function buildAHK(){
+  const ta = document.getElementById('ahk');
+  if(!ta || !sol) return;
+  const mvs = rawKeys();
+  const lines = mvs.map(a => '  ["' + a.join('","') + '"]').join(',\n');
+  
+  ta.value =
+`#Requires AutoHotkey v2.0
+; Gothic Schloss-Knacker Automatisierung
+; F8 = Sequenz starten | F7 = Reset
+
+delay := 250         ; Zeit zwischen den Schritten
+pressDuration := 100 ; Dauer des Tastendrucks
+
+moves := [
+${lines}
+]
+
+F8:: {
+    global moves, delay, pressDuration
+    ToolTip("Starte Sequenz...")
+    
+    ; 1. Initiales R zur Interaktion
+    Send("{r down}")
+    Sleep(pressDuration)
+    Send("{r up}")
+    Sleep(600) ; Warten bis Menü offen
+    
+    ; 2. Sequenz abspielen
+    for each, step in moves {
+        for k in step {
+            Send("{" k " down}")
+            Sleep(pressDuration)
+            Send("{" k " up}")
+            Sleep(50)
+        }
+        Sleep(delay)
+    }
+    
+    ; 3. Fertig und Beenden
+    ToolTip("Schloss offen - beende Skript.")
+    Sleep(1000)
+    ExitApp()
+}
+
+F7:: {
+    Reload ; Skript neu laden
+}`;
+}
+function copyAHK(){
+  const ta=document.getElementById('ahk'); if(!ta) return;
+  ta.select(); ta.setSelectionRange(0,99999);
+  try{ navigator.clipboard.writeText(ta.value); }catch(e){ document.execCommand('copy'); }
+  const b=document.getElementById('ahkBtn'); const o=b.textContent; b.textContent=t('copied'); setTimeout(()=>b.textContent=o,1200);
+}
+function downloadAHK(){
+  const ta=document.getElementById('ahk'); if(!ta||!ta.value) return;
+  const blob=new Blob([ta.value],{type:'text/plain;charset=utf-8'});
+  const url=URL.createObjectURL(blob);
+  const a=document.createElement('a');
+  a.href=url; a.download='gothic-schloss.ahk';
+  document.body.appendChild(a); a.click(); document.body.removeChild(a);
+  setTimeout(()=>URL.revokeObjectURL(url),1500);
+  const b=document.getElementById('ahkDl'); const o=b.textContent; b.textContent=t('saved'); setTimeout(()=>b.textContent=o,1400);
+}
+function toggleAHK(){ const w=document.getElementById('ahkWrap'); w.style.display=w.style.display==='none'?'block':'none'; }
+
+// ── TASTATUR: Mitlauf (Pfeile/Space) + schnelle Eingabe (W/A/S/D) ──
+document.addEventListener('keydown',e=>{
+  if(e.ctrlKey||e.metaKey||e.altKey) return;
+  const tag=(e.target.tagName||'').toLowerCase();
+  if(tag==='input'||tag==='textarea'||tag==='select') return;
+  if(presOpen()){
+    if(e.key==='ArrowRight'||e.key===' '||e.key==='Enter'){e.preventDefault();nextStep();}
+    else if(e.key==='ArrowLeft'){e.preventDefault();prevStep();}
+    else if(e.key==='Escape'){e.preventDefault();closePresenter();}
+    return;
+  }
+  const k=e.key.toLowerCase();
+  if(simP) return;
+  if(k==='w'){e.preventDefault();activeR=Math.min(N-1,activeR+1);drawPins();}
+  else if(k==='s'){e.preventDefault();activeR=Math.max(0,activeR-1);drawPins();}
+  else if(k==='a'){e.preventDefault();pins[activeR]=Math.max(0,pins[activeR]-1);clearSol();all();}
+  else if(k==='d'){e.preventDefault();pins[activeR]=Math.min(POS-1,pins[activeR]+1);clearSol();all();}
+});
+
+// ── ANZEIGEN / ADS (Google AdSense, regelkonform: kein Reload, kein Auto-Refresh) ──
+// Jeder Slot wird hoechstens EINMAL geladen. Mehrfaches Berechnen erzeugt KEINE
+// neuen Impressionen (das waere bei AdSense unzulaessig / Sperrgefahr).
+function pushAd(ins){
+  if(!ins || ins.dataset.loaded) return;
+  try{ (window.adsbygoogle=window.adsbygoogle||[]).push({}); ins.dataset.loaded='1'; }catch(e){}
+}
+function showResultAd(){
+  const w=document.getElementById('adResult');
+  if(!w) return;
+  w.style.display='block';   // explizit, sonst greift die CSS-Regel #adResult{display:none}
+  pushAd(document.getElementById('adResultIns'));
+}
+
+// ── STEUERUNGS-SCHEMA: Tastatur / Controller ──
+// Tastatur: A/D/W/S/R/ESC.  Controller: Stick/Steuerkreuz-Richtungen + Face-Buttons.
+// Das Tasten-Makro (AHK) bleibt immer Tastatur – ein Controller laesst sich damit nicht steuern.
+let ctrlScheme='kb';
+function initScheme(){ try{ const s=localStorage.getItem('gsk_scheme'); if(s==='kb'||s==='pad') ctrlScheme=s; }catch(e){} }
+function setScheme(s){
+  ctrlScheme=(s==='pad')?'pad':'kb';
+  try{ localStorage.setItem('gsk_scheme',ctrlScheme); }catch(e){}
+  drawControls();
+  if(sol){ drawSteps(); if(presOpen()) presUpdate(); }
+}
+function updateSchemeButtons(){
+  const a=document.getElementById('schemeKb'), b=document.getElementById('schemePad');
+  if(a) a.classList.toggle('active',ctrlScheme==='kb');
+  if(b) b.classList.toggle('active',ctrlScheme==='pad');
+}
+// Tastenbuchstabe -> Anzeige-Symbol je nach Schema
+function dispKey(k){
+  if(ctrlScheme==='pad'){
+    if(k.includes('W')) return '▲';
+    if(k.includes('S')) return '▼';
+    if(k==='A') return '◀';
+    if(k==='D') return '▶';
+  }
+  return k;
+}
+function drawControls(){
+  const rows = ctrlScheme==='pad'
+    ? [['◀ ▶','ctrl_ad'],['▲ ▼','ctrl_ws'],['Y / △','ctrl_r'],['B / ○','ctrl_esc']]
+    : [['A / D','ctrl_ad'],['W / S','ctrl_ws'],['R','ctrl_r'],['ESC','ctrl_esc']];
+  setHTML(document.getElementById('ctrlGrid'),
+    rows.map(r=>`<div class="ci"><div class="ck">${r[0]}</div><div class="ca">${t(r[1])}</div></div>`).join(''));
+  const ti=document.getElementById('ctrlTitle');
+  if(ti) ti.textContent=(ctrlScheme==='pad'?'🎮 ':'⌨ ')+t('ctrl_title');
+  const note=document.getElementById('ctrlNote');
+  if(note){ note.textContent=ctrlScheme==='pad'?t('ctrl_pad_note'):''; note.style.display=ctrlScheme==='pad'?'block':'none'; }
+  updateSchemeButtons();
+}
+
+// ── Init ──
+initLang();
+initScheme();
+all();
+applyI18n();
+pushAd(document.getElementById('adTopIns'));   // oberes Banner einmal beim Laden
+</script>
+</body>
+</html>
